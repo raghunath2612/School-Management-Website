@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                {% load static %}
+                <img src="{% static 'images/student.png' %}" alt="" />
+                <h3>Welcome</h3>
+                <p></p>
+                <input type="submit" name="" value="Login" /><br />
+            </div>
+            <div class="col-md-9 register-right">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                            aria-controls="home" aria-selected="true">Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                            aria-controls="profile" aria-selected="false">Employee</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Register as a Student</h3>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <label for=""><b>First Name</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="firstname" />
+                                    </div>
+                                    <label for=""><b>Middle Name</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="middlename" />
+                                    </div>
+                                    <label for=""><b>Last Name</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="lastname" />
+                                    </div>
+                                    <label for=""><b>Application number</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="appno" />
+                                    </div>
+                                    <label for=""><b>Aadhar card number</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="aadharno" />
+                                    </div>
+                                    <label for=""><b>Date of Birth</b></label>
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" name="dob" />
+                                    </div>
+                                    <label for=""><b>Gender</b></label>
+                                    <div class="form-group">
+                                        <div class="maxl">
+                                            <label class="radio inline">
+                                                <input type="radio" name="gender" value="male" checked>
+                                                <span> Male </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="gender" value="female">
+                                                <span>Female </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <label for=""><b>Place of Birth</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="pob"/>
+                                    </div>
+                                    <label for=""><b>CASTE</b></label><br>
+                                    <div class="form-group">
+                                        <div class="maxl">
+                                            <label class="radio inline">
+                                                <input type="radio" name="caste" value="SC" checked>
+                                                <span> SC </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="caste" value="SC">
+                                                <span>ST </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="caste" value="BC" checked>
+                                                <span> BC </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="caste" value="OC">
+                                                <span>OC </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="caste" value="PC" checked>
+                                                <span> PC </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <label for=""><b>Parent mobile number</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="pmobno" />
+                                    </div>
+                                    <label for=""><b>HEALTH DETAILS :</b></label>
+                                    <br>
+                                    <label for="">Blood group report</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="bldgrp" />
+                                    </div>
+                                    <label for="">Eye Sight</label>
+                                    <div class="form-group">
+                                        <div class="two-col">
+                                            <div class="col1">
+                                                <label for="field1">Left Eye</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="lefteyesight" />
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col2">
+                                                <label for="field2">Right Eye</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="righteyesight" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label for="">Physical/Mental Disablities if any</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="disability" />
+                                    </div>
+                                    <label for="">Family doctor's name</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="doctorname" />
+                                    </div>
+                                    <label for="">Family doctor's contact no</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="doctorno" />
+                                    </div>
+                                    <label for="">Allergies if any</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="allergies" />
+                                    </div>
+                                    <label for="">Any Academic difficulties</label>
+                                    <label for="">Eg: Dyslexia</label>
+                                    <div class="form-group">
+                                        <textarea name="difficulties"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div>
+                                    <label for=""><b>Address</b></label><br>
+                                    <label for="">House no, Building, Apatment</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="hno" />
+                                    </div>
+                                    <label for="">Area, Colony, Street, Village</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="area"/>
+                                    </div>
+                                    <label for="">Landmark</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="landmark" />
+                                    </div>
+                                    <label for="">Town/City</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="town" />
+                                    </div>
+                                    <label for="">Pincode</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="pincode" />
+                                    </div>
+                                </div>
+                                    <label for=""><b>Mother tongue</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="mtongue" />
+                                    </div>
+                                    <label for=""><b>Identification mark 1</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="idmark1" />
+                                    </div>
+                                    <label for=""><b>Identification mark 2</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="idmark2" />
+                                    </div>
+                                    <label for=""><b>SMS to be sent to Mobile No.</b></label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="smsmobno" />
+                                    </div>
+                                    <!-- <label for=""><b>Details of the previous school(s) attended</b></label>
+                                    <div class="form-group" align="center">
+                                        <table border="1">
+
+                                        </table>
+                                    </div> -->
+                                    
+                                </div>
+                                <div style="width: 100%; height: 10px; float:left; margin: 0px;"></div>
+                                <label for=""><b>Previous school details :</b></label>
+                                <br>
+                                <div class="form-group">
+                                    <table class="previousschool" id="previousschool">
+                                        <tr>
+                                            <th>Name of previous school</th>
+                                            <th>School Address</th>
+                                            <th>Year/s of study</th>
+                                            <th>Class studied</th>
+                                            <th>Medium of instruction</th>
+                                            <th>Marks/grade</th>
+                                            <th>SSC/CBSE/ICSE?ANY OTHER</th>
+                                        </tr>
+                                        <tr>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="width: 100%; height: 10px; float:left; margin: 0px;"></div>
+                                <label for=""><b>Special Talents, if any, in any field</b></label>
+                                <div class="form-group">
+                                    <table class="talents-siblings">
+                                        <tr>
+                                            <th>Child</th>
+                                            <td> <input type="text" class="form-control" name="childtalent" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Father</th>
+                                            <td> <input type="text" class="form-control" name="fathertalent" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mother</th> 
+                                            <td> <input type="text" class="form-control" name="mothertalent" /></td>
+                                        </tr>
+                                    </table>
+                                </div><br>
+                                <label for=""><b>Siblings (own brother/sister) studying in this school </b></label>
+                                <div class="form-group">
+                                    <table class="talents-siblings" >
+                                        <tr>
+                                            <th>Class & Section :</th>
+                                            <th>Name :</th>
+                                            <th>Admin. No. :</th>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br>
+                                <label for=""><b>Emergency contact details :</b></label>
+                                <br>
+                                <div class="two-col">
+                                    <div class="col1">
+                                        <label for="field1"><b>Name</b></label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col2">
+                                        <label for="field2"><b>Mobile</b></label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="width: 100%; height: 10px; float:left; margin: 0px;"></div>
+                                <label for=""><b>First languages (Medium of instructions) :  English </b></label>
+                                <form action="">
+                                <label for=""><b>Second language (select one)</b></label>
+                                <br>
+                                <label for=""><b>Classes UKG to X : </b></label>
+                                <br>
+                                <div style="width: 100%; height: 5px; float:left; margin: 0px;"></div>
+                                <input type="Checkbox" name="Hindi1" id="" >Hindi
+                                <br>
+                                <input type="Checkbox" name="Telugu1" id="" >Telugu
+                                <br>
+                                <div style="width: 100%; height: 5px; float:left; margin: 0px;"></div>
+                                <label for=""><b>Third language (select one)</b></label>
+                                <br>
+                                <label for=""><b>Classes IV to X : </b></label>
+                                <br>
+                                <div style="width: 100%; height: 5px; float:left; margin: 0px;"></div>
+                                <input type="checkbox" name="Hindi2" id="" >Hindi
+                                <br>
+                                <input type="Checkbox" name="Telugu2" id="" >Telugu
+                                <br>
+                                <input type="Checkbox" name="Sanskrit2" id="" >Sanskrit
+                                </form>
+                                <div style="width: 100%; height: 10px; float:left; margin: 0px;"></div>
+                                <label for=""><b>Family details : </b></label>
+                                <div class="form-group">
+                                    <table class="talents-siblings" >
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Father</th>
+                                            <th>Mother</th>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Name (as per Municipal record)</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Nationality</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Qualification</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Profession/Designation</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Name/Address of Office</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Annual Income</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Transferable Job</b></label></td>
+                                            <td><center><input type="radio" id="" name="F-trans" value="Yes">
+                                                <label for="">Yes</label>
+                                                <input type="radio" id="" name="F-trans" value="No">
+                                                <label for="">No</label><br></center></td>
+                                            <td><center><input type="radio" id="" name="M-trans" value="Yes">
+                                                <label for="">Yes</label>
+                                                <input type="radio" id="" name="M-trans" value="No">
+                                                <label for="">No</label><br></center></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Adhar Card Number (compulsory)</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Email Address</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Residence Telephone no</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>Office Telephone no</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for=""><b>SMS to be sent to Mobile no</b></label></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                            <td> <input type="text" class="form-control" value="" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="width: 100%; height: 10px; float:left; margin: 0px;"></div>
+                                <label for=""><b>You have come to know about the school through :</b></label>
+                                <div style="width: 100%; height: 5px; float:left; margin: 0px;"></div>
+                                <div class="Referring">
+                                    <table class="Referring" >
+                                        <tr>
+                                            <td style="padding-left:20px; padding-right:20px"><input type="checkbox" name="" id=""><B> Newspapers  </B></td>
+                                            <td style="padding-left:20px; padding-right:20px"><input type="checkbox" name="" id=""><B> Friends  </B></td>
+                                            <td style="padding-left:20px; padding-right:20px"><input type="checkbox" name="" id=""><B> Web  </B></td>
+                                        </tr>
+                                    </table>
+                                <br>
+                                </div>
+                                <label for=""><b>Declaration to be made : </b></label>
+                                <div style="width: 100%; height: 10px; float:left; margin: 0px;"></div>
+                                <label for=""><b>Date of Birth certificate</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" />
+                                    </div>
+                                    <label for=""><b>Transfer Certificate(Original)</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Previous School Report</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Aadhar card number</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Adhar Card of Father</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Blood Group Report of The Child</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Certificate of Caste</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Physically handicapped certificate(if any)</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Residential Address Proof</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Guardian Certificate</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <label for=""><b>Other Certificates,(if any)</b></label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" value="" />
+                                    </div>
+                                    <div class="form-group" align="center"><br>
+                                    <input type="submit" class="btnRegister" value="Register"  onClick="return alert('saved')"/>
+                                    <div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+</body>
+</html>

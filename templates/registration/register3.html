@@ -1,0 +1,165 @@
+{% extends 'header.html' %}
+
+{% block script %}
+{% load static %}
+<script src="{% static 'scripts/thirdpage.js' %}"></script> 
+{% endblock %}
+
+
+{% block body_block %}
+
+<div>
+    <h3 class="register-heading">Register as a Student</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row register-form">
+            <div class="col-md-12">
+                <div class="navigationbox">
+                    <div class="pagination p1">
+                        <ul>
+                            <a href="1"><li>1</li></a>
+                            <a href="2"><li>2</li></a>
+                            <a class="is-active" href="3"><li>3</li></a>
+                            <a href="4"><li>4</li></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Siblings">
+                <label for=""><b>Siblings (own brother/sister) studying in this school </b></label>
+                <div class="form-group">
+                        <input type="button" id="addRow" value="Add Sibling" onclick="createRowsibs()" class="btn btn-primary" />
+                        <input type="button" id="remRow" value=" Delete Sibling" onclick="removeRow()" class="btn btn-danger" />
+                        <input type="number" id="rowlimit" name="rowlimit" readonly value="{{rowlimit|default:0}}">
+                        <table id="empTable">
+                            <tr>
+                                <th>Class & Section</th>
+                                <th>Name</th>
+                                <th>Admission no :</th>
+                            </tr>
+                            {% for i in siblingslis%}
+                                <tr>
+                                    {% for j in i %}
+                                        <td><input type="text" name={{j.0}} id={{j.0}} value="{{j.1}}" required ></td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                </div>
+            </div>
+
+            <div class="space"  style="border-top: 25px solid transparent" ></div>
+            <div class="Family Details">
+                <label for=""><b>Family details : </b></label>
+                <div class="form-group">
+                    <table class="talents-siblings">
+                        <tr>
+                            <th>Description</th>
+                            <th>Father</th>
+                            <th>Mother</th>
+
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Name (as per Municipal record)</b></label></td>
+                            <td> <input type="text" class="form-control" name="fathername" value="{{familydetails.fathername}}" id="father-name-f" required/></td>
+                            <td> <input type="text" class="form-control" name="mothername" value="{{familydetails.mothername}}" id="mother-name-f" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Nationality</b></label></td>
+                            <td> <input type="text" class="form-control" name="fathernationality" value="{{familydetails.fathernationality}}" id="father-nationality-f" required/></td>
+                            <td> <input type="text" class="form-control" name="mothernationality" value="{{familydetails.mothernationality}}" id="mother-nationality-f" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Qualification</b></label></td>
+                            <td> <input type="text" class="form-control" name="fatherqualification" value="{{familydetails.fatherqualification}}" id="father-edu-f" required/></td>
+                            <td> <input type="text" class="form-control" name="motherqualification" value="{{familydetails.motherqualification}}" id="mother-edu-f" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Profession/Designation</b></label></td>
+                            <td> <input type="text" class="form-control" name="fatherprofession" value="{{familydetails.fatherprofession}}" id="father-job-f" required/></td>
+                            <td> <input type="text" class="form-control" name="motherprofession" value="{{familydetails.motherprofession}}" id="mother-job-f" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Name/Address of Office</b></label></td>
+                            <td> <input type="text" class="form-control" name="fatherofficeaddress" value="{{familydetails.fatherofficeaddress}}" id="father-office-f" /></td>
+                            <td> <input type="text" class="form-control" name="motherofficeaddress" value="{{familydetails.motherofficeaddress}}" id="mother-office-f" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Annual Income</b></label></td>
+                            <td> <input type="number" class="form-control" name="fatherannualincome" value="{{familydetails.fatherannualincome}}" id="father-income-f" required/></td>
+                            <td> <input type="number" class="form-control" name="motherannualincome" value="{{familydetails.motherannualincome}}" id="mother-income-f" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Transferable Job</b></label></td>
+                            <td>
+                                <center><input type="radio" id="fathertransferablejob" name="fathertransferablejob" value="Yes" {{transferablejob.fatheryes}} required>
+                                    <label for="">Yes</label>
+                                    <input type="radio" id="fathertransferablejob" name="fathertransferablejob" value="No" {{transferablejob.fatherno}}>
+                                    <label for="">No</label><br>
+                                </center>
+                            </td>
+                            <td>
+                                <center><input type="radio" id="mothertransferablejob" name="mothertransferablejob" value="Yes" {{transferablejob.motheryes}} required>
+                                    <label for="">Yes</label>
+                                    <input type="radio" id="mothertransferablejob" name="mothertransferablejob" value="No" {{transferablejob.motherno}}>
+                                    <label for="">No</label><br>
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Adhar Card Number (compulsory)</b></label></td>
+                            <td> <input type="text" pattern="[1-9]{1}[0-9]{11}"  maxlength="12" class="form-control" name="fatheradhaarno" value="{{familydetails.fatheradhaarno}}" id="father-aadhar-f" maxlength="12" required/></td>
+                            <td> <input type="text" pattern="[1-9]{1}[0-9]{11}"  maxlength="12" class="form-control" name="motheradhaarno" value="{{familydetails.motheradhaarno}}" id="mother-aadhar-f" maxlength="12" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Email Address</b></label></td>
+                            <td> <input type="text" class="form-control" name="fatheremail" value="{{familydetails.fatheremail}}" id="father-email-f" onblur="validateEmail(this);" /></td>
+                            <td> <input type="text" class="form-control" name="motheremail" value="{{familydetails.motheremail}}" id="mother-email-f" onblur="validateEmail(this);" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Residence Telephone no</b></label></td>
+                            <td> <input type="number" class="form-control" name="fatherteleno" value="{{familydetails.fatherteleno}}" id="father-mob-f" maxlength="10" required/></td>
+                            <td> <input type="number" class="form-control" name="motherteleno" value="{{familydetails.motherteleno}}" id="mother-mob-f" maxlength="10"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>Office Telephone no</b></label></td>
+                            <td> <input type="text" class="form-control" pattern="[1-9]{1}[0-9]{9}" name="fatherofficeno" value="{{familydetails.fatherofficeno}}" id="father-Officemob-f" maxlength="10"/></td>
+                            <td> <input type="text" class="form-control" pattern="[1-9]{1}[0-9]{9}" name="motherofficeno" value="{{familydetails.motherofficeno}}" id="mother-Officemob-f" maxlength="10"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for=""><b>SMS to be sent to Mobile no</b></label></td>
+                            <td> <input type="text" pattern="[1-9]{1}[0-9]{9}" class="form-control" name="fathersms" value="{{familydetails.fathersms}}" id="father-Smsmob-f" maxlength="10" required/></td>
+                            <td> <input type="text" pattern="[1-9]{1}[0-9]{9}" class="form-control" name="mothersms" value="{{familydetails.mothersms}}" id="mother-Smsmob-f" maxlength="10"/></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="space"  style="border-top: 15px solid transparent" ></div>
+                <div class="School information">
+                    <div style="width: 100%; height: 10px; float:left; margin: 0px;"></div>
+                    <label for=""><b>You have come to know about the school through :</b></label>
+                    <div style="width: 100%; height: 5px; float:left; margin: 0px;"></div>
+                    <div class="Referring">
+                        <table class="Referring">
+                            <tr>
+                                <td style="padding-left:20px; padding-right:20px"><input
+                                        type="checkbox" name="newspaper" value="newspaper" id="newspaper-refer" {{schoolsourcedic.newspaper}}><B> Newspapers </B></td>
+                                <td style="padding-left:20px; padding-right:20px"><input
+                                        type="checkbox" name="friends" value="friends" id="friend-refer" {{schoolsourcedic.friends}}><B> Friends </B></td>
+                                <td style="padding-left:20px; padding-right:20px"><input
+                                        type="checkbox" name="web" value="web" id="web-refer" {{schoolsourcedic.web}}><B> Web </B></td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"><br>
+                <input type="submit" class="btnRegister" value="Save & Next"
+                     />
+                <div>
+    </form>
+
+</div>
+
+{% endblock %}

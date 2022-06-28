@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% include 'pre-templates/bootstrap-links.html' %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheets/search-style.css' %}" type="text/css">
+    <script src="{% static 'scripts/table2excel.js' %}"></script>
+</head>
+
+<body>
+    {% include 'pre-templates/navbar.html' %}
+    <center>
+        <h1>Search Records</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <label><b>Application number :</b></label>
+                <input type="number" name="appno" maxlength="10">
+                <label><b> Name :</b></label>
+                <input type="text" name="name" />
+            </div>
+            <div>
+                <input type="submit" value="Search" />
+        </form>
+        <input type="button" style=" width : 10%;
+            background-color:#0a58ca;
+            color: #fff;
+            border-color: #0a53be;
+            font-weight:600;
+            border-radius: 1.5rem;
+            font-size: 15px;
+            margin  : 8px;
+            padding : 8px;" value="export" onsubmit="return false;" id="downloadexcel">
+        <div style="height:500px; width:1200px; overflow:auto;" onclick="return false;">
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Application Number</th>
+                        <th>Firstname</th>
+                        <th>Middlename</th>
+                        <th>Lastname</th>
+                        <th>Class</th>
+                        <th>Section</th>
+                        <th>FatherName</th>
+                        <th>MotherName</th>
+                        <th>Aadhar Number</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Caste</th>
+                        <th>Parent Mobile Number</th>
+                        <th>SMS to be sent</th>
+                        <th>Generate <br> reports</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in studentData %}
+                    <tr>
+                        <td><strong>{{forloop.counter}}</strong></td>
+                        <td>{{data.appno}}</td>
+                        <td>{{data.firstname}}</td>
+                        <td>{{data.middlename}}</td>
+                        <td>{{data.lastname}}</td>
+                        <td>{{data.presentclass}}</td>
+                        <td>{{data.section}}</td>
+                        <td>{{data.fathername}}</td>
+                        <td>{{data.mothername}}</td>
+                        <td>{{data.aadharno}}</td>
+                        <td>{{data.dob}}</td>
+                        <td>{{data.gender}}</td>
+                        <td>{{data.caste}}</td>
+                        <td>{{data.pmobno}}</td>
+                        <td>{{data.smsmobno}}</td>
+                        <td><button class="btn btn-info"
+                                onclick="javascript:window.location='/viewstudent/{{data.appno}}'">report</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <script>
+                document.getElementById('downloadexcel').addEventListener('click', function () {
+                    var table2excel = new Table2Excel();
+                    table2excel.export(document.querySelectorAll("#table"));
+                    return false;
+                });
+            </script>
+        </div>
+    </center>
+</body>

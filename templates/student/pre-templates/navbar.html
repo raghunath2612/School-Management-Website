@@ -1,0 +1,38 @@
+
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: red;">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="javascript:window.location='/student'">Home</a>
+                  </li>
+                </ul>
+                <li class="navbar-nav ml-auto">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" >
+                        {% load static %}
+                        <img src="{% static 'images/profile-icon.png' %}" width="30" height="30" alt="" srcset="">
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0 !important; left: auto !important;">
+                        <li class="dropdown-item"><img src="{{passphoto}}" width="70px" height="70px" alt="" srcset=""></li>
+                        <li class="dropdown-item"><h4>{{sname}}</h4></li>
+                        <li class="dropdown-item">Roll No : {{user}}</li>
+                        <hr>
+                        <li><a class="dropdown-item" href="javascript:window.location='/profile/1'">Profile</a></li>
+                        <li><a class="dropdown-item" href="javascript:window.location='/changepp'">Change Profile Picture</a></li>
+                        <li><a class="dropdown-item" href="javascript:window.location='/changepassword'">Change Password</a></li>
+                        
+                        <hr>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                      </ul>
+                    </li>
+              </div>
+            </div>
+          </nav>    
+    </div>
+    

@@ -1,0 +1,23 @@
+{% extends 'header.html' %}
+
+{% block body_block %}
+
+    <div>
+        <h3 class="register-heading">Register as a Student</h3>
+        <form id="form1" method="POST" >
+            {% csrf_token %}
+            <div class="row register-form">
+                <div class="col-md-12">
+                    <label for=""><b>Application number</b></label>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="appno" maxlength="10" required min="0" />
+                    </div>
+                </div>
+
+                <div class="form-group"><br>
+                    <input type="submit" class="btnRegister" value="Register"/>
+                    <div>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Django ms sql tutorial</h2>
+    <table border="1px; solid">
+        <tr>
+            <th>appno</th>
+            <th>image</th>
+        </tr>
+        {% comment %} <tr>
+            <td>sdlsa</th>
+            <td>{{data}}</td>
+        </tr> {% endcomment %}
+        {% for datadisplay in sqlserverconn%}
+        <tr>
+            <td>{{datadisplay.appno}}</td>
+            <td>{{ data }}>></td>
+        </tr> 
+        {% endfor %}
+    </table>
+</body>
+</html>

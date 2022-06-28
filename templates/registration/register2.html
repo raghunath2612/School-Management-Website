@@ -1,0 +1,167 @@
+{% extends 'header.html' %}
+
+{% block script %}
+{% load static %}
+<script src="{% static 'scripts/school.js' %}"></script> 
+{% endblock %}
+
+
+{% block body_block %}
+
+
+<div>
+    <h3 class="register-heading">Register as a Student</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row register-form">
+            <div class="col-md-12">
+                <div class="navigationbox">
+                    <div class="pagination p1">
+                        <ul>
+                            <a href="1">
+                                <li>1</li>
+                            </a>
+                            <a class="is-active" href="2">
+                                <li>2</li>
+                            </a>
+                            <a href="3">
+                                <li>3</li>
+                            </a>
+                            <a href="4">
+                                <li>4</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+                
+                <div class="Previous-school">
+                    <label for=""><b>Previous school details :</b></label>
+                    <div class="form-group">
+                        <input type="button" id="addRow" value="Add details"
+                            onclick="createRowsibs()" class="btn btn-primary" />
+                        <input type="button" id="remRow" value=" Delete Row" onclick="removeRow()"
+                            class="btn btn-danger" />
+                        <input type="number" id="rowlimit" name="rowlimit" readonly
+                            value="{{rowlimit|default:0}}">
+                        <table id="empTable">
+                            <tr>
+                                <th>Name Of Previous School</th>
+                                <th>School Address</th>
+                                <th>Year/s of study</th>
+                                <th>Class studied</th>
+                                <th>Medium of instruction</th>
+                                <th>Marks /grade</th>
+                                <th>Board</th>
+                            </tr>
+                            {% for i in previousschoollis %}
+                            <tr>
+                                {% for j in i %}
+                                <td><textarea name={{j.0}} id={{j.0}} cols="9" rows="4" required>{{j.1}}</textarea></td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+            <br><br>
+            <div class="space" style="border-top: 25px solid transparent"></div>
+            <div class="special talent">
+                <label for=""><b>Special Talents, if any, in any field</b></label>
+                <div class="form-group">
+                    <table class="talents-siblings">
+                        <tr>
+                            <th>Child</th>
+                            <td> <input type="text" class="form-control" name="childtalent1"
+                                    value={{specialtalents.childtalent1}}></td>
+                            <td> <input type="text" class="form-control" name="childtalent2"
+                                    value={{specialtalents.childtalent2}}></td>
+                        </tr>
+                        <tr>
+                            <th>Father</th>
+                            <td> <input type="text" class="form-control" name="fathertalent1"
+                                    value={{specialtalents.fathertalent1}}></td>
+                            <td> <input type="text" class="form-control" name="fathertalent2"
+                                    value={{specialtalents.fathertalent2}}></td>
+
+                        </tr>
+                        <tr>
+                            <th>Mother</th>
+                            <td> <input type="text" class="form-control" name="mothertalent1"
+                                    value={{specialtalents.mothertalent1}}></td>
+                            <td> <input type="text" class="form-control" name="mothertalent2"
+                                    value={{specialtalents.mothertalent2}}></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="space" style="border-top: 25px solid transparent"></div>
+            <div class="Language of subject">
+                <label for=""><b>First language (Medium of instructions) : </b></label>
+                <br>
+                <input type="radio" name="mlanguage1" id="English1" value="English" checked>
+                <label for="">English</label><br>
+                <label for=""><b>Second language (select one)*</b></label>
+                <br>
+                <label for=""><b>Classes UKG to X : </b></label>
+                <br>
+                <div style="width: 100%; height: 5px; float:left; margin: 0px;"></div>
+                <input type="radio" id="Hindi2" value="Hindi" name="mlanguage2"
+                    {{mlanguagedic.Hindi2}} required>
+                <label for="">Hindi</label><br>
+                <input type="radio" id="Telugu2" value="Telugu" name="mlanguage2"
+                    {{mlanguagedic.Telugu2}}>
+                <label for="">Telugu</label><br>
+                <div style="width: 100%; height: 5px; float:left; margin: 0px;"></div>
+                <label for=""><b>Third language (select one)*</b></label>
+                <br>
+                <label for=""><b>Classes IV to X : </b></label>
+                <br>
+                <div style="width: 100%; height: 5px; float:left; margin: 0px;"></div>
+                <input type="radio" id="Hindi3" value="Hindi" name="mlanguage3"
+                    {{mlanguagedic.Hindi3}} required>
+                <label for="">Hindi</label><br>
+                <input type="radio" id="Telugu3" value="Telugu" name="mlanguage3"
+                    {{mlanguagedic.Telugu3}}>
+                <label for="">Telugu</label><br>
+                <input type="radio" id="Sanskrit3" value="Sanskrit" name="mlanguage3"
+                    {{mlanguagedic.Sanskrit3}}>
+                <label for="">Sanskrit</label><br>
+            </div>
+            <div class="space" style="border-top: 25px solid transparent"></div>
+            <div class="Emergency contact">
+                <label for=""><b>Emergency contact details :</b></label>
+                <br>
+                <div class="two-col">
+                    <div class="col1">
+                        <label for="field1"><b>Name</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="ecname"
+                                value="{{emergencycontactdetails.ecname}}" required />
+                        </div>
+                    </div>
+
+                    <div class="col2">
+                        <label for="field2"><b>Mobile</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="ecmob"
+                                pattern="[1-9]{1}[0-9]{9}"
+                                maxlength="10"
+                                value="{{emergencycontactdetails.ecmob}}" required />
+                            <div class="space" style="border-top: 25px solid transparent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"><br>
+                <input type="submit" class="btnRegister" value="Save & Next" onclick="return verifyTextArea()"/>
+                <div>
+    </form>
+
+</div>
+
+{% endblock %}

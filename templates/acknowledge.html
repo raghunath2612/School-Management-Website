@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheets/reports.css' %}" type="text/css">
+    {% include 'pre-templates/bootstrap-links.html' %}
+    <script src="{% static 'scripts/html2pdf.bundle.min.js' %}"></script> 
+</head>
+<script>
+    window.onload = function () {
+        document.getElementById("download")
+            .addEventListener("click", () => {
+                const invoice = this.document.getElementById("report");
+                console.log(invoice);
+                console.log(window);
+                var opt = {
+                    margin: 1,
+                    filename: 'myfile.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                html2pdf().from(invoice).set(opt).save();
+                console.log("hello")
+
+            })
+    }
+
+    //  document format generation 
+    function Export2Doc(element, filename = '') {
+        var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+        var postHtml = "</body></html>";
+        var html = preHtml + document.getElementById(element).innerHTML + postHtml;
+
+        var blob = new Blob(['\ufeff', html], {
+            type: 'application/msword'
+        });
+
+        var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html)
+
+        filename = filename ? filename + '.doc' : 'document.doc';
+
+        var downloadLink = document.createElement("a");
+
+        document.body.appendChild(downloadLink);
+
+        if (navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            downloadLink.href = url;
+
+            downloadLink.download = filename;
+
+            downloadLink.click();
+        }
+
+        document.body.removeChild(downloadLink);
+
+
+    }
+</script>
+
+<body>
+    {% load has_group %}
+    {% if request.user|has_group:"student" %}
+        {% include 'student/pre-templates/navbar.html' %}
+    {% else %}
+        {% include 'pre-templates/navbar.html' %}
+    {% endif %}
+    <div class="acknowledgement">
+        <div id="form" style="margin-top: 20px; margin-bottom: 10px; width:100%;"></div>
+        <div class="buttondiv">
+            <button class="btn btn-danger" id="download">download as PDF</button>
+            <button class="btn btn-primary" onclick="Export2Doc('report', 'mydoc');">Export as Doc</button>
+
+        </div>
+        <div id="report">
+            <div class="page-1">
+                <div class="heading">
+                    <center>
+                        <h3>VIGNANA JYOTHI PUBLIC SCHOOL</h3>
+                        <P>G-16A Madhura Nagar,Hyderabad - 500038</P>
+                    </center>
+                    <hr>
+                    <center><U><B>APPLICATION FORM</B></U></center>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col" id="form" style="margin-top: 10px; margin-bottom: 10px;">
+                        <p>NAME OF THE STUDENT : {{student.firstname}} {{student.middlename}} {{student.lastname}}</p>
+                        <p>CLASS : {{student.presentclass}}</p>
+                        <p>APPLICATION NO : {{student.appno}}</p>
+                        <p>GENDER : {{student.gender}}</p>
+                        <p>AADHAR NO : {{student.aadharno}}</p>
+                        <P>DATE OF BIRTH : {{student.dob}}</P>
+                        <p>ADDRESS OF STUDENT : </p>
+                        <p>{{address.hno}} {{address.area}} {{address.town}} {{address.landmark}}, {{address.pincode}}</p>
+                        <p>PLACE OF BIRTH : {{student.pob}}</p>
+                        <p style="padding-right: 50px;">CASTE : {{student.caste}}</p>
+                        <p>MOTHER TONGUE : {{student.mtongue}}</p>
+                        <p>IDENTIFICATION MARKS : </p>
+                        <P>1. {{student.idmark1}}</P>
+                        <P>2. {{student.idmark2}}</P>
+                    </div>
+                    <div class="col">
+                        <img src="{{certificates.passphoto}}" width="150px" height="150px" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+            <div class="page-1">
+                <div id="form" style="margin-top: 10px; margin-bottom: 10px">
+                    <div class="space" style="border-top: 15px solid transparent"></div>
+                    <div class="health">
+                        <p>MOBILE NO FOR SMS : {{student.smsmobno}}</p>
+                        <h4>HEALTH DETAILS</h4>
+                        <p>BLOOD GROUP REPORT : {{healthdetails.bldgrp}}</p>
+                        <P><B>EYE SIGHT</B></P>
+                        <p>LEFT EYE : {{healthdetails.lefteyesight}}</p>
+                        <P>RIGHT EYE : {{healthdetails.righteyesight}}</P>
+                        <P>PHYSICAL DISABLITIES : {{healthdetails.disability}}</P>
+                        <P>FAMILY DOCTOR NAME : {{healthdetails.doctorname}}</P>
+                        <P>FAMILY DOCTOR CONTACT NO : {{healthdetails.doctorno}}</P>
+                        <P>ALLERGIES : {{healthdetails.allergies}}</P>
+                        <p>DIFFICULTIES : {{healthdetails.difficulties}}</p>
+                    </div>
+                    <div class="emergency">
+                        <h4>CONTACT DETAILS</h4>
+                        <p>CONTACT NAME : {{emergencycontactdetails.ecname}}</p>
+                        <p>CONTACT NUMBER : {{emergencycontactdetails.ecmob}}</p>
+                    </div>
+                    <div class="refer">
+                        <h4>REFERRED BY</h4>
+                        {% for i in schoolsourcelis %}
+                        <p>{{i}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="form" style="margin-top: 160px; margin-bottom: 10px"></div>
+            <hr>
+            <div class="page-1">
+                <div id="form" style="margin : 10px">
+
+                    <div class="family" style="overflow-x: auto;">
+                        <h4>FAMILY DETAILS</h4>
+                        <table border="2px solid black" class="table" style="width: 100%; ">
+                            <tr>
+                                <th>DESCRIPTION</th>
+                                <th>FATHER</th>
+                                <th>MOTHER</th>
+                            </tr>
+                            <tr>
+                                <td>NAME(as per municipal ward)</td>
+                                <td>{{familydetails.fathername}}</td>
+                                <td>{{familydetails.mothername}}</td>
+                            </tr>
+                            <tr>
+                                <td>nationality</td>
+                                <td>{{familydetails.fathernationality}}</td>
+                                <td>{{familydetails.mothernationality}}</td>
+                            </tr>
+                            <tr>
+                                <td>qualification</td>
+                                <td>{{familydetails.fatherqualification}}</td>
+                                <td>{{familydetails.motherqualification}}</td>
+                            </tr>
+                            <tr>
+                                <td>profession</td>
+                                <td>{{familydetails.fatherprofession}}</td>
+                                <td>{{familydetails.motherprofession}}</td>
+                            </tr>
+                            <tr>
+                                <td>Office address</td>
+                                <td style="white-space:pre-line ; word-break : break-all">
+                                    {{familydetails.fatherofficeaddress}}</td>
+                                <td style="white-space:pre-line ; word-break : break-all">
+                                    {{familydetails.motherofficeaddress}}</td>
+                            </tr>
+                            <tr>
+                                <td>Annual income</td>
+                                <td>{{familydetails.fatherannualincome}}</td>
+                                <td>{{familydetails.motherannualincome}}</td>
+                            </tr>
+                            <tr>
+                                <td>Transferable job</td>
+                                <td>{{familydetails.fathertransferablejob}}</td>
+                                <td>{{familydetails.mothertransferablejob}}</td>
+                            </tr>
+                            <tr>
+                                <td>Adhaar number</td>
+                                <td>{{familydetails.fatheradhaarno}}</td>
+                                <td>{{familydetails.motheradhaarno}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{familydetails.fatheremail}}</td>
+                                <td>{{familydetails.motheremail}}</td>
+                            </tr>
+                            <tr>
+                                <td>Tel number</td>
+                                <td>{{familydetails.fatherteleno}}</td>
+                                <td>{{familydetails.motherteleno}}</td>
+                            </tr>
+                            <tr>
+                                <td>office number</td>
+                                <td>{{familydetails.fatherofficeno}}</td>
+                                <td>{{familydetails.motherofficeno}}</td>
+                            </tr>
+                            <tr>
+                                <td>contact for SMS</td>
+                                <td>{{familydetails.fathersms}}</td>
+                                <td>{{familydetails.mothersms}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <h4>SIBLINGS DETAILS</h4>
+                    <table class="table" border="2px solid" style="width: 100%;">
+                        <tr>
+                            <th>CLASS OF STUDY</th>
+                            <th>NAME OF STUDENT</th>
+                            <th>ADMISSION NO</th>
+                        </tr>
+                        {% for datadisplay in siblings%}
+
+                        <tr>
+                            <td>{{datadisplay.class}}</td>
+                            <td style="white-space:pre-line ; word-break : break-all">{{datadisplay.name}}</td>
+                            <td>{{datadisplay.admissionno}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                    <h4>PREVIOUS SCHOOL DETAILS</h4>
+                    <table class="table" border="2px solid" style="width: 100%;">
+                        <tr>
+                            <th style="white-space:pre-line ; word-break : break-all">NAME OF STUDENT</th>
+                            <th style="white-space:pre-line ; word-break : break-all">ADDRESS</th>
+                            <th>STUDY</th>
+                            <th>CLASS</th>
+                            <th>MEDIUM</th>
+                            <th>MARKS</th>
+                            <th>BOARD</th>
+                        </tr>
+                        {% for datadisplay in previousschool%}
+
+                        <tr>
+                            <td style="white-space:pre-line ; word-break : break-all">{{datadisplay.sname}}</td>
+                            <td style="white-space:pre-line ; word-break : break-all">{{datadisplay.saddress}}</td>
+                            <td>{{datadisplay.study}}</td>
+                            <td>{{datadisplay.class}}</td>
+                            <td>{{datadisplay.meidum}}</td>
+                            <td>{{datadisplay.marks}}</td>
+                            <td style="white-space:pre-line ; word-break : break-all">{{datadisplay.board}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <h4>CERTIFICATES ACKNOWLEDGEMENT</h4>
+                    <table class="table" border="2px solid" style="width: 100%;">
+                        <tr>
+                            <th>No</th>
+                            <th>Document</th>
+                            <th>Acknowledgement</th>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>Pass Photo</td>
+                            <td>{{dic1.passphoto}}</td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>Date of Birth certificate</td>
+                            <td>{{dic1.dob}}</td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>Transfer Certificate(Original)</td>
+                            <td>{{dic1.transfer}}</td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td>Previous School Report</td>
+                            <td>{{dic1.previous}}</td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td>Aadhar card number</td>
+                            <td>{{dic1.aadhar}}</td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td>Adhar Card of Father</td>
+                            <td>{{dic1.aadhar_f}}</td>
+                        </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td>Certificate of Caste</td>
+                            <td>{{dic1.caste}}</td>
+                        </tr>
+                        <tr>
+                            <td>9.</td>
+                            <td>Physically handicapped certificate(if any)</td>
+                            <td>{{dic1.handicap}}</td>
+                        </tr>
+                        <tr>
+                            <td>10.</td>
+                            <td>Residential Address Proof</td>
+                            <td>{{dic1.resident}}</td>
+                        </tr>
+                        <tr>
+                            <td>11.</td>
+                            <td>Guardian Certificate</td>
+                            <td>{{dic1.guardian}}</td>
+                        </tr>
+                        <tr>
+                            <td>12.</td>
+                            <td>Other Certificates : 1</td>
+                            <td>{{dic1.other1}}</td>
+                        </tr>
+                        <tr>
+                            <td>13.</td>
+                            <td>Other Certificates : 2</td>
+                            <td>{{dic1.other2}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+

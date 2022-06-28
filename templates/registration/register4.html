@@ -1,0 +1,116 @@
+{% extends 'header.html' %}
+
+{% block script %}
+{% load static %}
+<script src="{% static 'scripts/fourthpage.js' %}"></script> 
+{% endblock %}
+
+
+{% block body_block %}
+
+<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <h3 class="register-heading">Register as a Student</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row register-form">
+            <div class="col-md-12">
+                <div class="navigationbox">
+                    <div class="pagination p1">
+                        <ul>
+                            <a href="1"><li>1</li></a>
+                            <a href="2"><li>2</li></a>
+                            <a href="3"><li>3</li></a>
+                            <a class="is-active" href="4"><li>4</li></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for=""><b>PassPhoto</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_passphoto" id="certificate-passphoto" accept="image/*" onchange="loadFile(event,'passphotoImage')" {{requireddic.passphoto}}/>
+                    <img src="{{ pathdic.passphoto }}" id="passphotoImage"  height="100" width="100" />
+                </div>
+                <label for=""><b>Date of Birth certificate</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_dob" id="certificate-dob" accept="image/*" onchange="loadFile(event,'DOBImage')" {{requireddic.dob}}/>
+                    <img src="{{ pathdic.dob }}" id="DOBImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Transfer Certificate(Original)</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_transfer" value="" id="certificate-transfer" accept="image/*" onchange="loadFile(event,'certificateImage')" {{requireddic.transfer}}/>
+                    <img src="{{ pathdic.transfer }}" id="certificateImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Previous School Report</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_previous" value=""  id="certificate-previous-report" accept="image/*" onchange="loadFile(event,'previousImage')" {{requireddic.previous}}/>
+                    <img src="{{ pathdic.previous }}" id="previousImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Aadhar card number</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_aadhar" value=""  id="certificate-aadhar" accept="image/*" onchange="loadFile(event,'aadharImage')" {{requireddic.aadhar}}/>
+                    <img src="{{ pathdic.aadhar }}" id="aadharImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Adhar Card of Father</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_aadhar_f" value=""  id="certificate-aadhar-f" accept="image/*" onchange="loadFile(event,'aadhar_fImage')" {{requireddic.aadhar_f}}/>
+                    <img src="{{ pathdic.aadhar_f }}" id="aadhar_fImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Blood Group Report of The Child</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_blood" value=""  id="certificate-blood" accept="image/*" onchange="loadFile(event,'bloodImage')" {{requireddic.blood}}/>
+                    <img src="{{ pathdic.blood }}" id="bloodImage"  height="100" width="100" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for=""><b>Certificate of Caste</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_caste" value=""  id="certificate-caste" accept="image/*" onchange="loadFile(event,'casteImage')" {{requireddic.caste}}/>
+                    <img src="{{ pathdic.caste }}" id="casteImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Physically handicapped certificate(if any)</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_handicap" value=""  id="certificate-handicap" accept="image/*" onchange="loadFile(event,'handicapImage')" {{requireddic.handicap}}/>
+                    <img src="{{ pathdic.handicap }}" id="handicapImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Residential Address Proof</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_resident" value=""  id="certificate-resident" accept="image/*" onchange="loadFile(event,'residentImage')" {{requireddic.resident}}/>
+                    <img src="{{ pathdic.resident }}" id="residentImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Guardian Certificate</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_guardian" value=""  id="certificate-guardian" accept="image/*" onchange="loadFile(event,'guardianImage')" {{requireddic.guardian}}/>
+                    <img src="{{ pathdic.guardian }}" id="guardianImage"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <label for=""><b>Other Certificates,(if any)</b></label>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_other" value=""  id="certificate-other" accept="image/*" onchange="loadFile(event,'other1Image')"/>
+                    <img src="{{ pathdic.other1 }}" id="other1Image"  height="100" width="100" />
+                </div>
+                <div class="space"  style="border-top: 8px solid transparent" ></div>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="certificate_other2" value="certificate-other2"  accept="image/*" {{required}} onchange="loadFile(event,'other2Image')"/>
+                    <img src="{{ pathdic.other2 }}" id="other2Image"  height="100" width="100" />
+                </div>
+            </div>
+            <div class="form-group"><br>
+                <input type="submit" class="btnRegister" value="submit" />
+                <div>
+            <script>
+                openImageInNewTab()
+            </script>
+    </form>
+
+</div>
+
+{% endblock %}

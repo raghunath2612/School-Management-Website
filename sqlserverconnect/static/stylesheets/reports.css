@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
+body{
+    background-color: red;
+}
+h1{
+    font-family: 'Montserrat', sans-serif;
+}
+p{
+    font-family: 'Noto Serif', serif;
+    font-weight: 500;
+}
+.acknowledgement{
+    padding: 0;
+}
+#report{
+    box-shadow: 0 0 5px;
+}
+.page-1{
+    margin-top: 10px;
+    margin: 20px;
+    border-style: solid;
+}
+.heading{
+    padding-top: 20px;
+    margin: 30px;
+    margin-top: 10px;
+}
+#form{
+    margin: 60px;
+    margin-top: 10px;
+}
+.buttondiv{
+    margin: 10px;
+    text-align: left;
+}

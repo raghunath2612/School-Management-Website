@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% include 'pre-templates/bootstrap-links.html' %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheets/search-style.css' %}" type="text/css">
+</head>
+<body>
+    {% include 'student/pre-templates/navbar.html' %}
+   <a href="javascript:window.location='/viewstudent/{{user}}'">Generate report</a>
+</body>

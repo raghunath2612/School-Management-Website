@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheets/reports.css' %}" type="text/css">
+    {% include 'pre-templates/bootstrap-links.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+</head>
+
+
+<body>
+    {% include 'pre-templates/navbar.html' %}
+    <center><H3>User not registered succesully.</H3></center>
+    <center><h4>Please register all the fields of the user correctly</h4></center>
+</body>
+
+</html>
+
+

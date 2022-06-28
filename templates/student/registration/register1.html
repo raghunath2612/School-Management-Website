@@ -1,0 +1,258 @@
+{% extends 'student/student-header.html' %}
+
+{% block script %}
+{% load static %}
+<script src="{% static 'scripts/checkdob.js' %}"></script> 
+{% endblock %}
+
+
+{% block body_block %}
+
+    <div>
+        
+        <h3 class="register-heading">Profile</h3>
+        <form id="form1" method="POST" >
+            {% csrf_token %}
+            <div class="row register-form">
+                <div class="col-md-12">
+                    <div class="navigationbox">
+                        <div class="pagination p1">
+                            <ul>
+                                <a class="is-active" href="1"><li>1</li></a>
+                                <a href="2"><li>2</li></a>
+                                <a href="3"><li>3</li></a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="Personal Details">
+                        <label for=""><b>Active/Inactive(*)</b></label>
+                        <div class="form-group" required>
+                            <div class="maxl">
+                                <label class="radio inline">
+                                    <input type="radio" name="isactive" value="active"  {{temp.active}} required>
+                                    <span> Active </span>
+                                </label>
+                                <label class="radio inline">
+                                    <input type="radio" name="isactive" value="inactive" {{temp.inactive}}>
+                                    <span> Inactive </span>
+                                </label>
+                            </div>
+                        </div>
+                        <label for=""><b>First Name(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" value="{{entry.firstname}}" name="firstname" id="firstname" required />
+                        </div>
+                    
+                        <label for=""><b>Middle Name(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" value="{{entry.middlename}}" name="middlename" />
+                        </div>
+                        
+                        <label for=""><b>Last Name(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="lastname" required value="{{entry.lastname}}" />
+                        </div>
+                        <label for="presentclass">Class:</label>
+                        <select id="presentclass" class="form-control" name="presentclass" required>
+                            <option value="Nursery" {{classdic.Nursery}}>Nursery</option>
+                            <option value="LKG" {{classdic.LKG}}>LKG</option>
+                            <option value="UKG" {{classdic.UKG}}>UKG</option>
+                            <option value="1" {{classdic.one}}>1</option>
+                            <option value="2" {{classdic.two}}>2</option>
+                            <option value="3" {{classdic.three}}>3</option>
+                            <option value="4" {{classdic.four}}>4</option>
+                            <option value="5" {{classdic.five}}>5</option>
+                            <option value="6" {{classdic.six}}>6</option>
+                            <option value="7" {{classdic.seven}}>7</option>
+                            <option value="8" {{classdic.eight}}>8</option>
+                            <option value="9" {{classdic.nine}}>9</option>
+                            <option value="10" {{classdic.ten}}>10</option>
+                        </select>
+                        <label for=""><b>Section(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="section" required value="{{entry.section}}" />
+                        </div>
+                        <label for=""><b>Aadhar card number(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="aadharno" pattern="[2-9]{1}[0-9]{11}" onKeyPress="if(this.value.length==12) return false;" maxlength="12" value="{{entry.aadharno}}" required />
+                        </div>
+                        <label for=""><b>Date of Birth(*)</b></label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="dob" id="dob" value="{{entry.dob}}" required />
+                        </div>
+                        <script type="text/javascript">
+                            checkDOB()
+                        </script>
+                        
+                        <label for=""><b>Gender(*)</b></label>
+                        <div class="form-group" required>
+                            <div class="maxl">
+                                <label class="radio inline">
+                                    <input type="radio" name="gender" value="male"  {{temp.male}} required>
+                                    <span> Male </span>
+                                </label>
+                                <label class="radio inline">
+                                    <input type="radio" name="gender" value="female" {{temp.female}}>
+                                    <span>Female </span>
+                                </label>
+                            </div>
+                        </div>
+                        <label for=""><b>Place of Birth(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="pob" value="{{entry.pob}}" required />
+                        </div>
+                        <div>
+                            <label for=""><b>CASTE(*)</b></label><br>
+                            <label for="">Choose caste</label>
+                            <label for="chkBC">
+                                <input type="radio" id="chkBC" value="BC" name="caste"  {{castedic.BC}} required/>
+                                BC
+                            </label>
+                            <label for="chkOC">
+                                <input type="radio" id="chkOC" value="OC" name="caste"  {{castedic.OC}} />
+                                OC
+                            </label>
+                            <label for="chkSC">
+                                <input type="radio" id="chkSC" value="SC" name="caste"  {{castedic.SC}} />
+                                SC
+                            </label>
+                            <label for="chkST">
+                                <input type="radio" id="chkST" value="ST" name="caste"  {{castedic.ST}}/>
+                                ST
+                            </label>
+                            <label for="chkPC">
+                                <input type="radio" id="chkPC" value="PC" name="caste"  {{castedic.PC}} />
+                                PC
+                            </label>
+                            <br>
+                            <label for="sub-caste">Choose Sub Caste if BC:</label>
+                            <select id="sub_caste" class="form-control" name="subcaste" required>
+                                <option value="None" {{castedic.None}}>None</option>
+                                <option value="BC-A" {{castedic.BCA}}>BC-A</option>
+                                <option value="BC-B" {{castedic.BCB}}>BC-B</option>
+                                <option value="BC-C" {{castedic.BCC}}>BC-C</option>
+                                <option value="BC-D" {{castedic.BCD}}>BC-D</option>
+                            </select> 
+                        </div>
+                        <label for=""><b>Parent mobile number(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="pmobno" pattern="[1-9]{1}[0-9]{9}" maxlength="10" value="{{entry.pmobno}}" required/>
+                        </div>
+                        <label for=""><b>Mother tongue(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="mtongue" value="{{entry.mtongue}}" required/>
+                        </div>
+                        <label for=""><b>Identification mark 1(*)</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="idmark1" value="{{entry.idmark1}}" required/>
+                        </div>
+                        <label for=""><b>Identification mark 2</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="idmark2" value="{{entry.idmark2}}"/>
+                        </div>
+                        <label for=""><b>SMS to be sent to Mobile No*</b></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="smsmobno" pattern="[1-9]{1}[0-9]{9}"  value="{{entry.smsmobno}}" maxlength="10" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="Health Details">
+                        <label for=""><b>HEALTH DETAILS :(*)</b></label>
+                        <br>
+                        <label for="">Blood group report*</label>
+                        <select class="form-control" name="bldgrp" id="blood-type" required>
+                            <option value="">select</option>
+                            <option value="A+" {{healthdic.AP}}>A+</option>
+                            <option value="A-" {{healthdic.AN}}>A-</option>
+                            <option value="B+" {{healthdic.BP}}>B+</option>
+                            <option value="B-" {{healthdic.BN}}>B-</option>
+                            <option value="AB+" {{healthdic.ABP}}>AB+</option>
+                            <option value="AB-" {{healthdic.ABN}}>AB-</option>
+                            <option value="O+" {{healthdic.OP}}>O+</option>
+                            <option value="O-" {{healthdic.ON}}>O-</option>
+                        </select>
+                        <label for="">Eye Sight</label>
+                        <div class="form-group">
+                            <div class="two-col">
+                                <div class="col1">
+                                    <label for="field1">Left Eye*</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="lefteyesight" style="margin-right: 20px;" value="{{healthdetails.lefteyesight}}" required/>
+                                    </div>
+                                </div>
+                                
+                                <div class="col2">
+                                    <label for="field2">Right Eye*</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="righteyesight" value="{{healthdetails.righteyesight}}" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label for="">Physical/Mental Disablities if any*</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="disability" value="{{healthdetails.disability}}" required/>
+                        </div>
+                        <label for="">Family doctor's name*</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="doctorname" value="{{healthdetails.doctorname}}"  required />
+                        </div>
+                        <label for="">Family doctor's contact no*</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="doctorno" value="{{healthdetails.doctorno}}" pattern="[1-9]{1}[0-9]{9}" maxlength="10" required/>
+                        </div>
+                        <label for="">Allergies if any*</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="allergies" value="{{healthdetails.allergies}}" required/>
+                        </div>
+                        <label for="">Any Academic difficulties</label>
+                        <label for="">Eg: Dyslexia</label>
+                        <div class="form-group">
+                            <textarea name="difficulties"  required >{{healthdetails.difficulties}}</textarea>
+                        </div>
+                    </div>
+                    <div class="Address">
+                                <label for=""><b>Address :(*)</b></label><br>
+                                <label for="">House no, Building/ Apartment*</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="hno" value="{{address.hno}}" required />
+                                </div>
+                                <label for="">Area/Colony/Street/Village*</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="area" value="{{address.area}}" required/>
+                                </div>
+                                <label for="">Landmark*</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="landmark" value="{{address.landmark}}" required />
+                                </div>
+                                <label for="">Town/City*</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="town" value="{{address.town}}" required />
+                                </div>
+                                <label for="">Pincode*</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="pincode" pattern="[1-9]{1}[0-9]{5}"  value="{{address.pincode}}" onKeyPress="if(this.value.length==6) return false;" required/>
+                                </div>
+                        </div>
+                </div>
+        </form>
+        <script>
+            inputs=document.getElementsByTagName("input");
+            for(let i=0;i<inputs.length;i++){
+                inputs[i].disabled=true;
+            }
+            inputs=document.getElementsByTagName("textarea");
+            for(let i=0;i<inputs.length;i++){
+                inputs[i].disabled=true;
+            }
+            inputs=document.getElementsByTagName("select");
+            for(let i=0;i<inputs.length;i++){
+                inputs[i].disabled=true;
+            }
+        </script>
+    </div>
+
+{% endblock %}
